@@ -4,22 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Experience - Billie Eickman</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;600;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,900&family=Archivo:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0d0a1a;
-            --surface: #1a1535;
-            --surface-light: #2a2050;
-            --text: #f4f1ff;
-            --text-dim: #b8aed8;
-            --primary: #ff6b9d;
-            --secondary: #ffd93d;
-            --tertiary: #6bcf7f;
-            --accent: #8b5cf6;
-            --gradient-1: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
-            --gradient-2: linear-gradient(135deg, #ffd93d 0%, #f9ca24 100%);
-            --gradient-3: linear-gradient(135deg, #6bcf7f 0%, #16a085 100%);
-            --gradient-4: linear-gradient(135deg, #8b5cf6 0%, #667eea 100%);
+            --void: #f3f1e6;
+            --stone: #ffffff;
+            --stone-soft: #d7dccb;
+            --paper: #1e2e26;
+            --paper-dim: #5f7268;
+            --ember: #2f6b4f;
+            --moss: #5f89ab;
         }
 
         * {
@@ -28,53 +23,56 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
+            font-family: 'Archivo', sans-serif;
+            background: var(--void);
+            color: var(--paper);
+            line-height: 1.7;
             overflow-x: hidden;
+            position: relative;
         }
 
-        .blob-container {
+        .vignette {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(ellipse at 50% 0%, var(--sky-soft, rgba(95,137,171,0.10)) 0%, transparent 55%);
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0.05;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        .atmosphere {
+            position: fixed;
+            bottom: -15%;
+            right: -12%;
+            width: 800px;
+            height: 800px;
             z-index: 0;
-            opacity: 0.15;
+            pointer-events: none;
+            opacity: 0.55;
+            background:
+                radial-gradient(circle at 30% 25%, var(--moss) 0%, transparent 65%),
+                radial-gradient(circle at 70% 75%, var(--ember) 0%, transparent 55%);
+            filter: blur(90px);
+            animation: drift 34s ease-in-out infinite;
         }
 
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            animation: float 20s ease-in-out infinite;
-        }
-
-        .blob-1 {
-            width: 500px;
-            height: 500px;
-            background: var(--accent);
-            top: -10%;
-            left: -10%;
-        }
-
-        .blob-2 {
-            width: 400px;
-            height: 400px;
-            background: var(--primary);
-            top: 50%;
-            right: -10%;
-            animation-delay: -5s;
-        }
-
-        @keyframes float {
+        @keyframes drift {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
+            50% { transform: translate(-25px, 20px) scale(1.06); }
         }
 
         nav {
@@ -82,15 +80,15 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(13, 10, 26, 0.9);
+            background: rgba(243, 241, 230, 0.88);
             backdrop-filter: blur(10px);
             z-index: 100;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid rgba(255, 107, 157, 0.1);
+            padding: 1.6rem 0;
+            border-bottom: 1px solid var(--stone-soft);
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
@@ -99,14 +97,21 @@
         }
 
         .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
             font-family: 'Fraunces', serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--paper);
             text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+
+        .logo svg {
+            width: 22px;
+            height: 22px;
+            color: var(--ember);
         }
 
         .nav-links {
@@ -116,27 +121,29 @@
         }
 
         .nav-links a {
-            color: var(--text-dim);
+            color: var(--paper-dim);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
             position: relative;
+            padding-bottom: 4px;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: -2px;
             left: 0;
             width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
+            height: 1px;
+            background: var(--ember);
+            transition: width 0.35s ease;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            color: var(--primary);
+            color: var(--paper);
         }
 
         .nav-links a:hover::after,
@@ -145,134 +152,141 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 2rem;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         .page-header {
-            padding: 140px 0 60px;
+            padding: 150px 0 50px;
             text-align: center;
         }
 
         .page-title {
             font-family: 'Fraunces', serif;
-            font-size: clamp(3rem, 6vw, 5rem);
-            font-weight: 900;
+            font-size: clamp(2.6rem, 5.5vw, 4rem);
+            font-weight: 600;
             margin-bottom: 1rem;
-            background: var(--gradient-4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--paper);
+            animation: focusIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
         }
 
         .page-subtitle {
-            font-size: 1.3rem;
-            color: var(--text-dim);
-            max-width: 700px;
+            font-size: 1.15rem;
+            color: var(--paper-dim);
+            max-width: 640px;
             margin: 0 auto;
+            animation: focusIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
         }
 
+
         .content-section {
-            padding: 3rem 0;
+            padding: 2rem 0 4rem;
         }
 
         .timeline {
             position: relative;
-            padding-left: 40px;
+            padding-left: 44px;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--primary), var(--accent), var(--tertiary));
+            left: 6px;
+            top: 8px;
+            bottom: 8px;
+            width: 1px;
+            background: var(--stone-soft);
         }
 
         .experience-card {
-            background: var(--surface);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 3rem;
-            border: 1px solid var(--surface-light);
-            transition: all 0.3s ease;
+            background: var(--stone);
+            border-radius: 8px;
+            padding: 2.2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--stone-soft);
+            transition: all 0.35s ease;
             position: relative;
+            overflow: hidden;
         }
 
         .experience-card::before {
             content: '';
             position: absolute;
-            left: -52px;
-            top: 40px;
-            width: 16px;
-            height: 16px;
-            background: var(--primary);
-            border: 3px solid var(--bg);
+            left: -44px;
+            top: 34px;
+            width: 13px;
+            height: 13px;
+            background: var(--void);
+            border: 1px solid var(--ember);
             border-radius: 50%;
             transition: all 0.3s ease;
         }
 
-        .experience-card:nth-child(2)::before {
-            background: var(--accent);
-        }
-
-        .experience-card:nth-child(3)::before {
-            background: var(--tertiary);
-        }
-
-        .experience-card:nth-child(4)::before {
-            background: var(--secondary);
+        .experience-card::after {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: -20%;
+            width: 55%;
+            height: 90%;
+            background: radial-gradient(circle, rgba(193, 125, 67, 0.16) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
         }
 
         .experience-card:hover {
-            transform: translateX(8px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 60px rgba(255, 107, 157, 0.2);
+            border-color: var(--ember);
+            transform: translateX(4px);
         }
 
         .experience-card:hover::before {
-            transform: scale(1.5);
-            box-shadow: 0 0 20px currentColor;
+            background: var(--ember);
+        }
+
+        .experience-card:hover::after {
+            opacity: 1;
         }
 
         .exp-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             flex-wrap: wrap;
             gap: 1rem;
         }
 
         .exp-title {
             font-family: 'Fraunces', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--paper);
+            margin-bottom: 0.4rem;
         }
 
         .exp-company {
-            color: var(--primary);
+            color: var(--moss);
             font-weight: 600;
-            font-size: 1.2rem;
+            font-size: 1.05rem;
         }
 
         .exp-date {
-            color: var(--text-dim);
-            font-size: 0.9rem;
+            color: var(--paper-dim);
+            font-size: 0.85rem;
             font-weight: 500;
             white-space: nowrap;
+            border: 1px solid var(--stone-soft);
+            padding: 0.25rem 0.7rem;
+            border-radius: 3px;
         }
 
         .exp-description {
-            color: var(--text-dim);
-            line-height: 1.8;
+            color: var(--paper-dim);
+            line-height: 1.85;
         }
 
         .exp-description ul {
@@ -282,49 +296,50 @@
         }
 
         .exp-description li {
-            padding-left: 1.5rem;
+            padding-left: 1.4rem;
             position: relative;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.7rem;
         }
 
         .exp-description li::before {
-            content: '▸';
+            content: '·';
             position: absolute;
-            left: 0;
-            color: var(--primary);
-            font-weight: bold;
+            left: 0.2rem;
+            top: -0.3rem;
+            color: var(--ember);
+            font-size: 1.4rem;
         }
 
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
+            gap: 0.6rem;
             margin-top: 1.5rem;
         }
 
         .tech-tag {
-            background: rgba(139, 92, 246, 0.15);
-            color: var(--accent);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
+            background: transparent;
+            color: var(--moss);
+            padding: 0.4rem 0.9rem;
+            border-radius: 3px;
+            font-size: 0.82rem;
             font-weight: 600;
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            border: 1px solid var(--stone-soft);
             transition: all 0.3s ease;
         }
 
         .tech-tag:hover {
-            background: rgba(139, 92, 246, 0.25);
-            transform: translateY(-2px);
+            border-color: var(--moss);
         }
 
         .highlight-badge {
             display: inline-block;
-            background: var(--gradient-3);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
+            background: transparent;
+            color: var(--ember);
+            border: 1px solid var(--ember);
+            padding: 0.25rem 0.7rem;
+            border-radius: 3px;
+            font-size: 0.72rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -335,7 +350,7 @@
             display: none;
             background: none;
             border: none;
-            color: var(--text);
+            color: var(--paper);
             font-size: 1.5rem;
             cursor: pointer;
         }
@@ -343,17 +358,17 @@
         @media (max-width: 768px) {
             .nav-links {
                 position: fixed;
-                top: 80px;
+                top: 76px;
                 left: 0;
                 right: 0;
-                background: rgba(13, 10, 26, 0.98);
+                background: rgba(243, 241, 230, 0.98);
                 backdrop-filter: blur(10px);
                 flex-direction: column;
                 padding: 2rem;
                 gap: 1.5rem;
                 transform: translateY(-100%);
                 transition: transform 0.3s ease;
-                border-bottom: 1px solid rgba(255, 107, 157, 0.1);
+                border-bottom: 1px solid var(--stone-soft);
             }
 
             .nav-links.active {
@@ -369,36 +384,42 @@
             }
 
             .timeline {
-                padding-left: 30px;
+                padding-left: 28px;
             }
 
             .timeline::before {
-                left: 10px;
+                left: 4px;
             }
 
             .experience-card::before {
-                left: -2px;
+                left: -28px;
             }
 
             .experience-card {
-                padding: 1.5rem;
+                padding: 1.6rem;
             }
 
             .exp-header {
                 flex-direction: column;
             }
+
+            .atmosphere {
+                opacity: 0.35;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="blob-container">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-    </div>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+    <div class="atmosphere"></div>
 
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="logo">BE</a>
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 21c8-1 13-6 14-14C13 8 7 13 6 21z M6 21c2-4 5-7 9-9"/></svg>
+                Billie Eickman
+            </a>
             <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
@@ -479,8 +500,7 @@
                     <div class="exp-header">
                         <div>
                             <h3 class="exp-title">Electrical and Data Acquisition Subsystem Lead</h3>
-                            <p class="exp-company">Georgia Tech Motorsports</p>
-                            <span class="highlight-badge">3rd Overall • Endurance Winner 2025</span>
+                            <p class="exp-company">Georgia Tech Motorsports<span class="highlight-badge">3rd Overall · Endurance Winner 2025</span></p>
                         </div>
                         <span class="exp-date">Apr 2024 – May 2025</span>
                     </div>
