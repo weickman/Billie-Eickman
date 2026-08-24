@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - Billie Eickman</title>
+    <title>Research - Billie Eickman</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,900&family=Archivo:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -56,10 +56,10 @@
 
         .atmosphere {
             position: fixed;
-            top: -12%;
-            right: -10%;
-            width: 800px;
-            height: 800px;
+            top: -10%;
+            left: -12%;
+            width: 750px;
+            height: 750px;
             z-index: 0;
             pointer-events: none;
             opacity: 0.55;
@@ -152,7 +152,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 2rem;
             position: relative;
@@ -186,31 +186,92 @@
             padding: 2rem 0 4rem;
         }
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 1.75rem;
-            margin-top: 1rem;
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ember);
+            padding: 0;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin: 3rem 0 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
         }
 
-        .project-card {
+        .section-label::before {
+            content: '';
+            width: 22px;
+            height: 1px;
+            background: var(--ember);
+        }
+
+        .research-intro {
+            background: var(--stone);
+            border-radius: 8px;
+            padding: 2.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--stone-soft);
+            border-top: 2px solid var(--ember);
+            position: relative;
+            animation: focusIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+        }
+
+        .research-intro h2 {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 1.7rem;
+            margin-bottom: 1.5rem;
+            color: var(--paper);
+        }
+
+        .research-intro p {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: var(--paper-dim);
+            margin-bottom: 1rem;
+        }
+
+        .research-intro strong {
+            color: var(--paper);
+        }
+
+        .research-interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 2rem;
+        }
+
+        .interest-tag {
+            background: transparent;
+            color: var(--moss);
+            padding: 0.45rem 1rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--stone-soft);
+        }
+
+        .publication-card,
+        .research-project-card {
             background: var(--stone);
             border-radius: 8px;
             padding: 2.2rem;
+            margin-bottom: 1.5rem;
             border: 1px solid var(--stone-soft);
             transition: all 0.35s ease;
             position: relative;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
         }
 
-        .project-card::after {
+        .publication-card::after,
+        .research-project-card::after {
             content: '';
             position: absolute;
             top: -40%;
-            right: -20%;
-            width: 60%;
+            left: -20%;
+            width: 55%;
             height: 90%;
             background: radial-gradient(circle, rgba(193, 125, 67, 0.16) 0%, transparent 70%);
             opacity: 0;
@@ -218,116 +279,112 @@
             pointer-events: none;
         }
 
-        .project-card:hover {
+        .publication-card:hover,
+        .research-project-card:hover {
             border-color: var(--ember);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
-        .project-card:hover::after {
+        .publication-card:hover::after,
+        .research-project-card:hover::after {
             opacity: 1;
         }
 
-        .project-icon {
-            width: 50px;
-            height: 50px;
-            background: transparent;
-            border: 1px solid var(--stone-soft);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .pub-year {
+            display: inline-block;
+            color: var(--moss);
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .pub-title {
+            font-family: 'Fraunces', serif;
             font-size: 1.4rem;
-            margin-bottom: 1.4rem;
+            font-weight: 600;
+            color: var(--paper);
+            margin-bottom: 0.8rem;
+            line-height: 1.35;
+        }
+
+        .pub-venue {
+            color: var(--moss);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .pub-authors {
+            color: var(--paper-dim);
+            font-size: 0.92rem;
+            margin-bottom: 0.8rem;
+            font-style: italic;
+        }
+
+        .pub-description {
+            color: var(--paper-dim);
+            line-height: 1.8;
+            margin-top: 1.2rem;
+        }
+
+        .pub-description a {
+            color: var(--ember) !important;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .project-title {
             font-family: 'Fraunces', serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 600;
             color: var(--paper);
-            margin-bottom: 1rem;
+        }
+
+        .project-period {
+            color: var(--paper-dim);
+            font-size: 0.85rem;
+            border: 1px solid var(--stone-soft);
+            padding: 0.25rem 0.7rem;
+            border-radius: 3px;
+            white-space: nowrap;
         }
 
         .project-description {
             color: var(--paper-dim);
-            line-height: 1.8;
-            margin-bottom: 1.4rem;
-            flex-grow: 1;
+            line-height: 1.85;
         }
 
-        .project-highlights {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 1.4rem;
-        }
-
-        .project-highlights li {
-            padding-left: 1.3rem;
-            position: relative;
-            margin-bottom: 0.5rem;
-            color: var(--paper-dim);
-            font-size: 0.92rem;
-        }
-
-        .project-highlights li::before {
-            content: '·';
-            position: absolute;
-            left: 0.15rem;
-            top: -0.3rem;
-            color: var(--ember);
-            font-size: 1.3rem;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.55rem;
-            margin-bottom: 1.4rem;
-        }
-
-        .tech-tag {
-            background: transparent;
-            color: var(--moss);
-            padding: 0.35rem 0.8rem;
-            border-radius: 3px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            border: 1px solid var(--stone-soft);
-        }
-
-        .project-link {
-            color: var(--ember);
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .project-link:hover {
-            gap: 0.75rem;
+        .project-description em {
             color: var(--paper);
         }
 
-        .project-link::after {
-            content: '→';
-            font-size: 1.1rem;
+        .project-description ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1.2rem;
         }
 
-        .achievement-badge {
-            display: inline-block;
-            align-self: flex-start;
-            background: transparent;
+        .project-description li {
+            padding-left: 1.4rem;
+            position: relative;
+            margin-bottom: 0.7rem;
+        }
+
+        .project-description li::before {
+            content: '·';
+            position: absolute;
+            left: 0.2rem;
+            top: -0.3rem;
             color: var(--ember);
-            border: 1px solid var(--ember);
-            padding: 0.25rem 0.7rem;
-            border-radius: 3px;
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
+            font-size: 1.4rem;
         }
 
         .mobile-menu-btn {
@@ -367,11 +424,9 @@
                 padding: 120px 0 40px;
             }
 
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .project-card {
+            .research-intro,
+            .publication-card,
+            .research-project-card {
                 padding: 1.6rem;
             }
 
@@ -395,9 +450,9 @@
             <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="research.html">Research</a></li>
+                <li><a href="research.html" class="active">Research</a></li>
                 <li><a href="experience.html">Experience</a></li>
-                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="projects.html">Projects</a></li>
                 <li><a href="education.html">Education</a></li>
             </ul>
         </div>
@@ -405,84 +460,150 @@
 
     <div class="container">
         <header class="page-header">
-            <h1 class="page-title">Projects</h1>
+            <h1 class="page-title">Research</h1>
             <p class="page-subtitle">
-                From machine learning to full-stack apps to AI-powered tools
+                Exploring how humans interact with data-driven systems, from civic and mental health data work to belonging in algorithmically-mediated and algorithmically-produced feeds
             </p>
         </header>
 
         <section class="content-section">
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon">🔒</div>
-                    <h3 class="project-title">Malicious URL Classification</h3>
-                    <p class="project-description">
-                        A machine learning project focused on identifying malicious URLs using supervised learning 
-                        techniques. Trained and compared multiple models to achieve high accuracy in detecting 
-                        potentially harmful web addresses.
-                    </p>
-                    <ul class="project-highlights">
-                        <li>Trained supervised ML models: LDA, Logistic Regression, Random Forest</li>
-                        <li>Achieved 93.59% accuracy with Random Forest classifier</li>
-                        <li>Published comprehensive methodology and results</li>
-                        <li>Feature engineering from URL patterns and characteristics</li>
-                    </ul>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Scikit-learn</span>
-                        <span class="tech-tag">Random Forest</span>
-                        <span class="tech-tag">LDA</span>
-                        <span class="tech-tag">Machine Learning</span>
-                    </div>
-                    <a href="https://github.com/weickman" class="project-link" target="_blank">View on GitHub</a>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">🥗</div>
-                    <h3 class="project-title">GreenPlate</h3>
-                    <p class="project-description">
-                        A full-stack healthy eating tracking application that helps users monitor their nutrition, 
-                        log meals, and track progress toward their health goals with real-time analytics and insights.
-                    </p>
-                    <ul class="project-highlights">
-                        <li>Built complete full-stack application with user authentication</li>
-                        <li>Implemented real-time user analytics and progress tracking</li>
-                        <li>Developed meal logging with nutritional database integration</li>
-                        <li>Created personalized recommendations based on eating patterns</li>
-                    </ul>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Java</span>
-                        <span class="tech-tag">Firebase</span>
-                        <span class="tech-tag">Full-Stack</span>
-                        <span class="tech-tag">Analytics</span>
-                        <span class="tech-tag">Real-time DB</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">🤖</div>
-                    <h3 class="project-title">Virtual TA</h3>
-                    <p class="project-description">
-                        An AI-powered note-taking and question-answering tool that helps students interact with 
-                        course materials more effectively. Uses advanced NLP to understand context and provide 
-                        relevant assistance.
-                    </p>
-                    <ul class="project-highlights">
-                        <li>Developed AI chatbot using OpenAI's LLM technology</li>
-                        <li>Implemented vector database with Pinecone for semantic search</li>
-                        <li>Built cross-platform desktop app using Electron framework</li>
-                        <li>Created intuitive interface for student-chatbot interaction</li>
-                    </ul>
-                    <div class="tech-stack">
-                        <span class="tech-tag">OpenAI</span>
-                        <span class="tech-tag">Pinecone</span>
-                        <span class="tech-tag">Electron</span>
-                        <span class="tech-tag">NLP</span>
-                        <span class="tech-tag">Vector DB</span>
-                        <span class="tech-tag">JavaScript</span>
-                    </div>
+            <div class="research-intro">
+                <h2>Research Focus</h2>
+                <p>
+                    My research examines how humans interact with data-driven systems, and how we can and should use the
+                    data those interactions produce. I'm particularly interested in what happens to human connection as
+                    it becomes increasingly algorithmically mediated, and now, algorithmically produced: whether the
+                    systems we build can actually tell us what people are feeling, and what we owe people when they can't.
+                </p>
+                <p>
+                    This throughline runs across a broader interest in human-computer interaction, data management
+                    practices, and mental health technologies. Earlier work examined how computing practitioners, from
+                    HCI researchers to civic and non-profit data workers, navigate the complexities of working with
+                    sensitive data. Current and future work turns that same question around, asking whether platforms'
+                    own behavioral data, engagement, trace data, and now AI-generated content, can be trusted to
+                    represent human experience at all.
+                </p>
+                <p>
+                    Across all of this, I develop systems, frameworks, and empirical accounts that support ethical
+                    practices centered on <strong>data flourishing</strong>: human-centered approaches that prioritize
+                    dignity and well-being over mere compliance, moving from compliance-focused approaches toward
+                    care-centered, contextually-sensitive methods honoring individual dignity and collective responsibility.
+                </p>
+                <div class="research-interests">
+                    <span class="interest-tag">Algorithmic Belonging</span>
+                    <span class="interest-tag">Social Computing</span>
+                    <span class="interest-tag">Data Flourishing</span>
+                    <span class="interest-tag">Platform Trust</span>
+                    <span class="interest-tag">HCI</span>
+                    <span class="interest-tag">Mental Health Ethics</span>
+                    <span class="interest-tag">Civic Data Work</span>
+                    <span class="interest-tag">Responsible AI</span>
                 </div>
             </div>
+
+            <span class="section-label">Current Work</span>
+
+            <div class="research-project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Operationalizing Diffracted Belonging</h3>
+                    </div>
+                    <span class="project-period">Ongoing</span>
+                </div>
+                <div class="project-description">
+                    <p>
+                        Recent HCI scholarship has identified <em>diffracted belonging</em>: the felt connection people
+                        experience toward strangers and creators reflected back at them across a personalized feed, each
+                        often representing a different facet of the self, without any direct interaction required. This
+                        experience has been richly described qualitatively, but never directly elicited on its own terms,
+                        nor tested against how people actually engage with the content that produces it. My current
+                        project addresses this directly, examining whether the engagement signals platforms already
+                        collect, likes, comments, shares, and simply viewing, actually correspond to this felt experience,
+                        rather than assuming they do.
+                    </p>
+                    <ul>
+                        <li>Semi-structured interviews anchored in participants' own historical TikTok engagement data, rather than free recall or live scrolling</li>
+                        <li>Posts sampled deliberately across a person's full range of engagement, passive, reactive, interactive, and contributory, deliberately including content viewed but never acted on</li>
+                        <li>Synthesizes engagement typologies from communication research, consumer behavior, and platform-specific TikTok scholarship to sample engagement more precisely than any single existing framework</li>
+                        <li>Applies an explicit coding definition distinguishing diffracted belonging from adjacent experiences, general enjoyment, parasocial attachment to a single creator, and novelty-driven curiosity</li>
+                        <li>Designed to stand as a complete, standalone qualitative contribution while also producing groundwork for future measurement development</li>
+                    </ul>
+                </div>
+            </div>
+
+            <span class="section-label">Publications</span>
+
+            <div class="publication-card">
+                <span class="pub-year">2026</span>
+                <h3 class="pub-title">Datum Fieldnotes: Learning How Civic and Non-Profit Data Workers Perform Data Contextualization In Situ</h3>
+                <p class="pub-venue">Conference Paper</p>
+                <p class="pub-authors">Annabel Rothschild, Mukhlisabonu K. Nematova, Billie Eickman, Carl DiSalvo, Betsy DiSalvo</p>
+                <p class="pub-description">
+                    DOI: <a href="https://doi.org/10.1145/3808045.3808052" target="_blank" rel="noopener">10.1145/3808045.3808052</a>
+                </p>
+            </div>
+
+            <div class="publication-card">
+                <span class="pub-year">2025</span>
+                <h3 class="pub-title">Datum Fieldnotes: Easing the Data Work Burden on Civic and Non-Profit Organizations</h3>
+                <p class="pub-venue">CHI Late Breaking Work</p>
+                <p class="pub-authors">Billie Eickman, Mukhlisabonu K. Nematova, Annabel Rothschild, Carl DiSalvo, Betsy DiSalvo</p>
+                <p class="pub-description">
+                    DOI: <a href="https://doi.org/10.1145/3706599.3719905" target="_blank" rel="noopener">10.1145/3706599.3719905</a>
+                </p>
+            </div>
+
+            <span class="section-label">Past Work</span>
+
+            <div class="research-project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Mental Health Data Ethics and Practitioner Challenges</h3>
+                    </div>
+                    <span class="project-period">Completed</span>
+                </div>
+                <div class="project-description">
+                    <p>
+                        Through semi-structured interviews with eleven HCI researchers developing predictive and 
+                        semi-automated mental health systems, our research team investigated the disconnect between 
+                        ethical intentions and practical capabilities in mental health technology research.
+                    </p>
+                    <ul>
+                        <li>Conducted thematic analysis revealing systematic challenges in mental health tech development</li>
+                        <li>Identified gaps between diverse disciplinary training leading to inconsistent ethical practices</li>
+                        <li>Documented IRB struggles to evaluate emerging technologies like large language models</li>
+                        <li>Revealed fundamental ambiguity around what constitutes "health data" in computing research</li>
+                        <li>Exposed significant gaps between published methods and actual research practices</li>
+                        <li>Demonstrated how field fragmentation leaves practitioners without adequate support for vulnerable populations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="research-project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Datum Fieldnotes: Supporting Civic and Non-Profit Data Work</h3>
+                    </div>
+                    <span class="project-period">Completed</span>
+                </div>
+                <div class="project-description">
+                    <p>
+                        In collaboration with Dr. Betsy DiSalvo and Dr. Annabel Rothschild, developed a Google Sheets 
+                        add-on supporting data documentation in civic and non-profit (CNP) organizations. The tool 
+                        addresses a critical tension: data work is mission-critical for demonstrating impact, yet diverts 
+                        resources from direct service.
+                    </p>
+                    <ul>
+                        <li>Conducted user testing with twelve CNP data workers to understand organizational needs</li>
+                        <li>Developed tool that automates micro-documentation and enables rich contextualization</li>
+                        <li>Created comprehensive curriculum to support data infrastructure literacy across skill levels</li>
+                        <li>Addressed challenges of lean budgets, high turnover, and minimal training capacity</li>
+                        <li>Recognized that CNP datasets frequently become training data for ML systems in social services</li>
+                        <li>Published findings at CHI 2025 Late Breaking Work</li>
+                    </ul>
+                </div>
+            </div>
+
         </section>
     </div>
 
